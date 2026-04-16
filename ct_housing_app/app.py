@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import os
 import joblib
 import plotly.express as px
 import plotly.graph_objects as go
@@ -13,19 +14,22 @@ st.set_page_config(
     layout="wide"
 )
 
+# Get the directory where app.py lives
+APP_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # ── Load models and data ──────────────────────────────────────
 @st.cache_resource
 def load_models():
-    model        = joblib.load('models/final_model.pkl')
-    preprocessor = joblib.load('models/preprocessor.pkl')
-    town_means   = joblib.load('models/town_means.pkl')
-    global_mean  = joblib.load('models/global_mean.pkl')
+    model        = joblib.load(os.path.join(APP_DIR, 'models/final_model.pkl'))
+    preprocessor = joblib.load(os.path.join(APP_DIR, 'models/preprocessor.pkl'))
+    town_means   = joblib.load(os.path.join(APP_DIR, 'models/town_means.pkl'))
+    global_mean  = joblib.load(os.path.join(APP_DIR, 'models/global_mean.pkl'))
     return model, preprocessor, town_means, global_mean
 
 @st.cache_data
 def load_data():
-    town_metrics = pd.read_csv('models/town_metrics.csv')
-    comps        = pd.read_csv('models/comps_data.csv')
+    town_metrics = pd.read_csv(os.path.join(APP_DIR, 'models/town_metrics.csv'))
+    comps        = pd.read_csv(os.path.join(APP_DIR, 'models/comps_data.csv'))
     return town_metrics, comps
 
 model, preprocessor, town_means, global_mean = load_models()
