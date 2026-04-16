@@ -213,6 +213,8 @@ Open `Connecticut_House_Data.ipynb` and run all cells.
 
 ## Streamlit App
 
+https://ct-housing-intelligence-9pn7hqumhhv4qxn99aifcs.streamlit.app/
+
 The app has three tabs:
 
 **💰 Price Predictor**
